@@ -6,6 +6,18 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.11.7"
 )
 
+    lazy val runn = taskKey[Unit]("Runs the main class with project name and my name: ")
+
+        lazy val userName: String = System.getProperty("user.name")
+        
+            lazy val osName: String = System.getProperty("os.name")
+            
+                lazy val archName: String = System.getProperty("os.arch")
+        
+    //        lazy val nameVersion: SettingKey[String] =
+     //       Def.setting(s" ${name.value} ${version.value}")
+
+        
 lazy val app = (project in file(".")).
   settings(commonSettings: _*).
   settings(
@@ -14,9 +26,26 @@ lazy val app = (project in file(".")).
     //libraryDependencies += "com.codenvy" % "example-swing" % "1.0",
     // add a test dependency on ScalaCheck
     //libraryDependencies += scalacheck % Test,
-    
+
+ // The argument string for the first run task is ' <name> <version>'
+ 
+     runn := {
+      import System.nanoTime
+      import java.lang.InterruptedException
+      println("We can use System.nanoTime to time only this command.")
+      val start = nanoTime
+      println("We can use the results of Scala expressions as inputs too!")
+                  try {  
+      val _ = (run in Compile).toTask( " name: " + userName + " OS: " + osName + " arch: " + archName ).value
+             // Thread sleep 10;                 
+          } catch{
+          case e: InterruptedException => Thread.currentThread().interrupt();
+          }
+        println("Done!, elapsed time " + (nanoTime - start).toString + " ns")
+     },
+
     // append several options to the list of options passed to the Java compiler
-    javacOptions ++= Seq("-source", "1.7", "-target", "1.7"),
+    javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
 
     // append -deprecation to the options passed to the Scala compiler
     scalacOptions ++= Seq("-deprecation", "-feature"),

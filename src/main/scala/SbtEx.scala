@@ -6,22 +6,18 @@ import scala.collection.mutable.LinkedHashSet
  */
 object SbtEx {
 
-  def foo( x : Array[String] ) = x.foldLeft( " ="  )( ( a, b ) => a+" and "+b )
-
   def main( args : Array[String] ) {
     println( "Sbt Ex!" )
-    println( "concat arguments"+foo( args ) )
-    println( "Hi from envy" )
-      val set = new scala.collection.mutable.LinkedHashSet[Any]
-          var boss = new Company()
-    boss setName "company name" 
-    val pt = new BasicPoint(5, 6)
-  set += boss  // add a string
-  set += boss.getName()                // add a number
-  set += pt
-  set += main _
-    set foreach (println(_))
+    println( "concat arguments = " + args.foldLeft( "()" )( _+" and "+_ ) )
+    val set = new scala.collection.mutable.LinkedHashSet[Any]
+    var boss = new Company()
+    boss setName ("the boss")
+    val pt = new BasicPoint( 5, 6 )
+    set += boss // add a class
+    set += boss.getName // add a string
+    set += pt // add a val
+    set += main _ // add a function
+    set foreach ( println _ ) // call print ln on everything
   }
 
 }
-  
