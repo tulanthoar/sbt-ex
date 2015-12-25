@@ -8,10 +8,16 @@ object SbtEx {
 
   def main( args : Array[String] ) {
     println( "Sbt Ex!" )
-    println( "concat arguments = " + args.foldLeft( "()" )( _+" and "+_ ) )
-    val set = new scala.collection.mutable.LinkedHashSet[Any]
+    try {
+      println( "cat args = "+( args tail ).foldLeft( args head )( _+", "+_ ) )
+    }
+    catch {
+      case _ : java.lang.UnsupportedOperationException => println ( "bad args" )
+      case _ : java.lang.Exception                     => println ( "unknown exception" )
+    }
+    val set = new LinkedHashSet[Any]
     var boss = new Company()
-    boss setName ("the boss")
+    boss setName ( "the boss" )
     val pt = new BasicPoint( 5, 6 )
     set += boss // add a class
     set += boss.getName // add a string
