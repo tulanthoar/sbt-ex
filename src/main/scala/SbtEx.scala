@@ -1,4 +1,6 @@
 import scala.language.postfixOps
+import java.lang.{ UnsupportedOperationException => OpError }
+import java.lang.{ Exception => BaseError }
 import scala.collection.mutable.LinkedHashSet
 
 /** @object App
@@ -6,14 +8,14 @@ import scala.collection.mutable.LinkedHashSet
  */
 object SbtEx {
 
-  def main( args : Array[String] ) {
+  def main( args: Array[String] ) {
     println( "Sbt Ex!" )
     try {
-      println( "cat args = "+( args tail ).foldLeft( args head )( _+", "+_ ) )
+      println( "cat args = " + ( args tail ).foldLeft( args head )( _ + ", " + _ ) )
     }
     catch {
-      case _ : java.lang.UnsupportedOperationException => println ( "bad args" )
-      case _ : java.lang.Exception                     => println ( "unknown exception" )
+      case _: OpError   => println ( "bad args" )
+      case _: BaseError => println ( "unknown exception" )
     }
     val set = new LinkedHashSet[Any]
     var boss = new Company()
@@ -23,7 +25,7 @@ object SbtEx {
     set += boss.getName // add a string
     set += pt // add a val
     set += main _ // add a function
-    set foreach ( println _ ) // call print ln on everything
+    set foreach println: Unit // call print ln on everything
   }
 
 }
