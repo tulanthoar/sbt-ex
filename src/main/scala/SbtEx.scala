@@ -17,19 +17,21 @@ object SbtEx {
       case _: Exception                     => println ( "unknown exception" )
     }
 
-    val set = new LinkedHashSet[AnyRef]
+    val mixedSet = new LinkedHashSet[AnyRef]
     val boss = { val c = new Company(); c setName "the boss"; c }
-    set += new Company() // add a ".java" class
-    set += boss toString () // add its name (a string)
-    set += new BasicPoint( 5, 6 ) // add a ".scala" class
-    set += main _ // add a function
-    set foreach println _: Unit // call println on everything
+    mixedSet += new Company() // add a ".java" class
+    mixedSet += boss toString () // add its name (a string)
+    mixedSet += new BasicPoint( 5, 6 ) // add a ".scala" class
+    mixedSet += main _ // add a function
+    mixedSet foreach println _: Unit // call println on everything
 
     val megaCompany = new LinkedHashSet[AnyRef] //a mega set of 50 companies
     for ( _ <- 0 to 50 ) { megaCompany add new Company } // fill it with minions
-    // assign every minion a convenient name
+    // print the object hash as a name (not a robust solution)
     println ( "Our generated companies are named" )
-    megaCompany foreach ( ( c: AnyRef ) => println( c.hashCode toString ) )
+    // println each entry but fisrt apply hashCode toString to each element
+    megaCompany map ( _.hashCode toString ) foreach println _
+
   }
 
 }
