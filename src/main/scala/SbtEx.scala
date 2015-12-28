@@ -16,21 +16,20 @@ object SbtEx {
       case _: UnsupportedOperationException => println ( "bad args" )
       case _: Exception                     => println ( "unknown exception" )
     }
-  }
-/*
+
     val set = new LinkedHashSet[AnyRef]
     val boss = { val c = new Company(); c setName "the boss"; c }
-    set += boss // add the result of a method
+    set += new Company() // add a ".java" class
     set += boss toString () // add its name (a string)
-    set += new BasicPoint( 5, 6 ) // add a class
+    set += new BasicPoint( 5, 6 ) // add a ".scala" class
     set += main _ // add a function
     set foreach println _: Unit // call println on everything
-*/
-    /*
+
     val megaCompany = new LinkedHashSet[AnyRef] //a mega set of 50 companies
     for ( _ <- 0 to 50 ) { megaCompany add new Company } // fill it with minions
     // assign every minion a convenient name
     println ( "Our generated companies are named" )
     megaCompany foreach ( ( c: AnyRef ) => println( c.hashCode toString ) )
   }
-*/
+
+}
