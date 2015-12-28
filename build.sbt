@@ -15,16 +15,17 @@ lazy val commonSettings = Seq(
   shellPrompt := { state => user + " " + (Project extract state).currentRef.project + "> " },
   // change the format of how sbt prints time
   timingFormat := {
-    import java.text.{DateFormat => DF}
-    DF.getDateTimeInstance(DF.SHORT, DF.SHORT)
+    import java.text.{DateFormat => DForm}
+    DForm.getDateTimeInstance(DForm.SHORT, DForm.SHORT)
   }
 )
 
 // this is an alternavive to "run" that input user name, os type, and achitecture
+import System.{getProperty => sysProp}
 lazy val runUsingInfo = taskKey[Unit]("Runs the main class with project name and my name: ")
-val user = System getProperty "user.name"
-val os = System getProperty "os.name"
-val arch = System getProperty "os.arch"
+val user = sysProp("user.name")
+val os = sysProp("os.name")
+val arch = sysProp("os.arch")
 
 lazy val sbtEx = (project in file(".")). // build project in directory "."
   settings(commonSettings: _*). // use common settings
